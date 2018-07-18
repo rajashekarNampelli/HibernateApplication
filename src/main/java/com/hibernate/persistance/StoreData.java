@@ -3,23 +3,20 @@ package com.hibernate.persistance;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.boot.Metadata;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
 
 public class StoreData {
 
 	public static void main(String[] args) {
-		StandardServiceRegistry ssr = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
-		Metadata meta = new MetadataSources(ssr).getMetadataBuilder().build();
-
-		SessionFactory factory = meta.getSessionFactoryBuilder().build();
+		Configuration cfg= new Configuration();
+		cfg.configure(); 
+		//we can aslo declare as cfg.configure("hibernate.hbm.xml") 
+		//as there is only one configuration file
+		SessionFactory factory=cfg.buildSessionFactory();
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
 
 		Employee e1 = new Employee();
-		e1.setId(1);
 		e1.setFirstName("Rajashekar");
 		e1.setLastName("Nampelli");
 
